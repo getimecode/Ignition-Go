@@ -66,6 +66,7 @@ $route['api/v1/(:any)/(:any)'] = 'api_v1/$1/$2';
 
 // Admin endpoints
 $route['admin'] = 'admin';
+$route[LOGIN_BACKEND_URL] = 'admin/check/login'; // admin/login as route
 $route['admin/(:any)'] = '$1/admin';
 $route['admin/(:any)/(:num)'] = '$1/admin/index/$2';
 $route['admin/(:any)/(:num)/(:any)'] = '$1/admin/index/$2/$3';
@@ -81,7 +82,7 @@ $route['api/(:any)/(:any)'] = 'api_v1/$1/$2';
 
 // Authentication
 $route[LOGIN_URL] = 'users/check/login';
-$route[LOGIN_BACKEND_URL] = 'admin/check/login';
+//$route[LOGIN_BACKEND_URL] = 'admin/check/login';
 $route[REGISTER_URL] = 'users/register';
 
 $route['logout'] = 'users/check/logout';
