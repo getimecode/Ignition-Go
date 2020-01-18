@@ -96,6 +96,9 @@ class Auth
         $selects = array(
             'id',
             'email',
+            'first_name',
+            'last_name',
+            'display_name',
             'username',
             'users.role role_id',
             'users.deleted',
@@ -204,6 +207,9 @@ class Auth
         $this->setupSession(
             $user->id,
             $user->username,
+            $user->first_name,
+            $user->last_name,
+            $user->display_name,
             $user->password_hash,
             $user->email,
             $user->role,
@@ -691,6 +697,9 @@ class Auth
     private function setupSession(
         $user_id,
         $username,
+        $first_name,
+        $last_name,
+        $display_name,
         $password_hash,
         $email,
         $role_id,
@@ -726,6 +735,9 @@ class Auth
                 'auth_custom' => $us_custom,
                 'user_token'  => sha1($user_id . $password_hash),
                 'identity'    => $login,
+                'ufname'  	  => $first_name,
+                'ulname'   	  => $last_name,
+                'udname'  	  => $display_name,
                 'role_id'     => $role_id,
                 'logged_in'   => true,
             )
