@@ -49,7 +49,7 @@ class Dashboard extends Front_Controller
     {
         // If the user is not already logged in, go.
         if ($this->auth->is_logged_in() === false) {
- //           Template::redirect('/admin/check/login');
+           Template::redirect('/admin/check/login');
         }
         $data = array();
         // menu
