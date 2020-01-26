@@ -96,10 +96,12 @@ class Auth
         $selects = array(
             'id',
             'email',
+            'username',
             'first_name',
             'last_name',
+            'sex',
+            'avatar',
             'display_name',
-            'username',
             'users.role role_id',
             'users.deleted',
             'users.active',
@@ -209,6 +211,8 @@ class Auth
             $user->username,
             $user->first_name,
             $user->last_name,
+            $user->sex,
+            $user->avatar,
             $user->display_name,
             $user->password_hash,
             $user->email,
@@ -223,7 +227,7 @@ class Auth
             $user->id,
             array(
                 'last_login' => $this->getLoginTimestamp(),
-                'last_ip'               => $this->ip_address,
+                'last_ip'    => $this->ip_address,
             )
         );
 
@@ -699,6 +703,8 @@ class Auth
         $username,
         $first_name,
         $last_name,
+        $sex,
+        $avatar,
         $display_name,
         $password_hash,
         $email,
@@ -731,15 +737,17 @@ class Auth
 
         $this->ci->session->set_userdata(
             array(
-                'user_id'     => $user_id,
-                'auth_custom' => $us_custom,
-                'user_token'  => sha1($user_id . $password_hash),
-                'identity'    => $login,
-                'ufname'  	  => $first_name,
-                'ulname'   	  => $last_name,
-                'udname'  	  => $display_name,
-                'role_id'     => $role_id,
-                'logged_in'   => true,
+                'user_id'		=> $user_id,
+                'auth_custom'	=> $us_custom,
+                'user_token'	=> sha1($user_id . $password_hash),
+                'identity'		=> $login,
+                'ufname'		=> $first_name,
+                'ulname'		=> $last_name,
+                'usex'   		=> $sex,
+                'uavatar'      	=> $avatar,
+                'udname'		=> $display_name,
+                'role_id'		=> $role_id,
+                'logged_in'		=> true,
             )
         );
 
@@ -860,7 +868,7 @@ class Auth
 
         // Grab the current user info for the session.
         $this->ci->load->model('users/user_model');
-        $user = $this->ci->user_model->select(array('id', 'username', 'email', 'password_hash', 'users.role role_id'))
+        $user = $this->ci->user_model->select(array('id', 'username', 'first_name', 'last_name', 'sex', 'avatar', 'display_name', 'email', 'password_hash', 'users.role role_id'))
                                      ->find($user_id);
 
         if (! $user) {
@@ -870,6 +878,11 @@ class Auth
         $this->setupSession(
             $user->id,
             $user->username,
+            $user->first_name,
+            $user->last_name,
+            $user->sex,
+            $user->avatar,
+            $user->display_name,
             $user->password_hash,
             $user->email,
             $user->role_id,
